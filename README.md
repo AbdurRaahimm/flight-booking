@@ -72,7 +72,7 @@ https://flight-booking-sigma-six.vercel.app/
 ![add flight](./images/image-9.png)
 ![booking management](./images/image-10.png)
 #### responsive
-![responsive view](./images/image.png)
+![responsive view](./images/image11.png)
 
 
 ## Connect on Social Media
