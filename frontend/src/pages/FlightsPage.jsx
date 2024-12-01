@@ -7,7 +7,7 @@ export default function FlightsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [flightsPerPage] = useState(5);
   const [filteredFlights, setFilteredFlights] = useState(flights);
-  const [priceRange, setPriceRange] = useState([0, 10000]);
+  const [priceRange, setPriceRange] = useState([0, 100000]);
   const [selectedAirlines, setSelectedAirlines] = useState([]);
   const [minSeats, setMinSeats] = useState(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -49,7 +49,7 @@ export default function FlightsPage() {
               <input
                 type="range"
                 min="0"
-                max="1000"
+                max="100000"
                 value={priceRange[1]}
                 onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
