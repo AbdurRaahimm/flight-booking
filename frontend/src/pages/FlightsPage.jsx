@@ -40,7 +40,7 @@ export default function FlightsPage() {
   return (
     <div className='py-8 flex'>
       {/* Sidebar */}
-      <div className={`fixed inset-y-10 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} w-64 bg-white shadow-lg transition-transform duration-300 ease-in-out z-20 md:relative md:translate-x-0`}>
+      <div className={`fixed inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} w-64 bg-white shadow-lg transition-transform duration-300 ease-in-out z-20 md:relative md:translate-x-0`}>
         <div className="p-4">
           <h3 className="text-lg font-semibold mb-4">Filters</h3>
           <button

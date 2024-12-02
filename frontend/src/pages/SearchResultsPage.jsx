@@ -9,7 +9,7 @@ const SearchResultsPage = () => {
   const { flights, searchFlights } = useFlights();
   const hasFetched = useRef(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 1;
+  const itemsPerPage = 2;
 
   // const origin = searchParams.get('origin')?.toLowerCase();
    // const destination = searchParams.get('destination')?.toLowerCase();

@@ -1,23 +1,47 @@
-import { Plane, Search } from 'lucide-react'
-import React from 'react'
+import { Search } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-
+import { useFlights } from '../context/FlightContext';
 
 export default function HeroSection() {
     const navigate = useNavigate();
+    const { flights } = useFlights();
+    const [origin, setOrigin] = useState('');
+    const [destination, setDestination] = useState('');
+    const [date, setDate] = useState('');
+    const [originSuggestions, setOriginSuggestions] = useState([]);
+    const [destinationSuggestions, setDestinationSuggestions] = useState([]);
+
+    useEffect(() => {
+        if (origin.length > 0) {
+            const suggestions = [...new Set(flights
+                .filter(flight => flight.origin.toLowerCase().includes(origin.toLowerCase()))
+                .map(flight => flight.origin))];
+            setOriginSuggestions(suggestions.length > 0 ? suggestions : ['No matches found']);
+        } else {
+            setOriginSuggestions([]);
+        }
+    }, [origin, flights]);
+
+    useEffect(() => {
+        if (destination.length > 0) {
+            const suggestions = [...new Set(flights
+                .filter(flight => flight.destination.toLowerCase().includes(destination.toLowerCase()))
+                .map(flight => flight.destination))];
+            setDestinationSuggestions(suggestions.length > 0 ? suggestions : ['No matches found']);
+        } else {
+            setDestinationSuggestions([]);
+        }
+    }, [destination, flights]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = Object.fromEntries(new FormData(e.target));
-        const origin = data.origin
-        const destination = data.destination
-        const date = data.date
         navigate(`/search?origin=${origin}&destination=${destination}&date=${date}`);
     }
+
     return (
-        <div className=" bg-hero-pattern bg-cover bg-center bg-no-repeat p-4 md:p-8 py-28 space-y-9">
+        <div className="bg-hero-pattern bg-cover bg-center bg-no-repeat p-4 md:p-8 py-28 space-y-9">
             <div className="flex flex-col justify-center items-center py-16">
-                {/* <h1 className='text-5xl font-bold'>Ready to take off?</h1> */}
                 <h1 className="text-4xl font-bold text-gray-900 mb-4 text-center">
                     Find Your Perfect Flight
                 </h1>
@@ -25,32 +49,70 @@ export default function HeroSection() {
                     Search through thousands of flights to find the best deals
                 </p>
 
-                <div className=" bg-white rounded-lg shadow-lg p-8 w-full sm:w-10/12 mx-auto mt-16">
+                <div className="bg-white rounded-lg shadow-lg p-8 w-full sm:w-10/12 mx-auto mt-16">
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
+                            <div className="relative">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
                                     From
                                 </label>
                                 <input
                                     type="text"
-                                    name='origin'
+                                    value={origin}
+                                    onChange={(e) => setOrigin(e.target.value)}
                                     required
                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                                     placeholder="City or Airport"
                                 />
+                                {originSuggestions.length > 0 && (
+                                    <ul className="absolute z-10 w-full bg-white border border-gray-300 mt-1 rounded-md shadow-lg">
+                                        {originSuggestions.map((suggestion, index) => (
+                                            <li 
+                                                key={index}
+                                                className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                                                onClick={() => {
+                                                    if (suggestion !== 'No matches found') {
+                                                        setOrigin(suggestion);
+                                                        setOriginSuggestions([]);
+                                                    }
+                                                }}
+                                            >
+                                                {suggestion}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
                             </div>
-                            <div>
+                            <div className="relative">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
                                     To
                                 </label>
                                 <input
                                     type="text"
-                                    name='destination'
+                                    value={destination}
+                                    onChange={(e) => setDestination(e.target.value)}
                                     required
                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                                     placeholder="City or Airport"
                                 />
+                                {destinationSuggestions.length > 0 && (
+                                    <ul className="absolute z-10 w-full bg-white border border-gray-300 mt-1 rounded-md shadow-lg">
+                                        {destinationSuggestions.map((suggestion, index) => (
+                                            <li 
+                                                key={index}
+                                                className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                                                onClick={() => {
+                                                    if (suggestion !== 'No matches found') {
+                                                        setDestination(suggestion);
+                                                        setDestinationSuggestions([]);
+                                                    }
+                                                }}
+                                            >
+                                                {suggestion}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -58,7 +120,8 @@ export default function HeroSection() {
                                 </label>
                                 <input
                                     type="date"
-                                    name='date'
+                                    value={date}
+                                    onChange={(e) => setDate(e.target.value)}
                                     required
                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                                 />
@@ -73,7 +136,6 @@ export default function HeroSection() {
                         </button>
                     </form>
                 </div>
-
             </div>
         </div>
     )
