@@ -39,19 +39,28 @@ To run this application locally, follow these steps:
 ```bash
 git clone https://github.com/AbdurRaahimm/flight-booking.git
 ```
-2. Go to Backend folder and run
+2. Go to Backend folder create `.env` and add 
+```bash
+MONGO_URI=
+JWT_SECRET=
+```
+3. Go to Backend folder and run
 ```bash
 cd Backend && npm start
 ```
-3. to check backend url 
+4. to check backend url 
 ```bash
 http://localhost:8080/
 ```
-4. Go to frontend folder and run
+5. Go to frontend folder create `.env` and add 
+```bash
+VITE_API_BASE_URL=http://localhost:8080
+```
+6. Go to frontend folder and run
 ```bash
 cd frontend && npm run dev
 ```
-5. to check frontend url 
+7. to check frontend url 
 ```bash
 http://localhost:5173/
 ```
