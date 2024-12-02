@@ -40,9 +40,15 @@ export default function FlightsPage() {
   return (
     <div className='py-8 flex'>
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} w-64 bg-white shadow-lg transition-transform duration-300 ease-in-out z-20 md:relative md:translate-x-0`}>
+      <div className={`fixed inset-y-10 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} w-64 bg-white shadow-lg transition-transform duration-300 ease-in-out z-20 md:relative md:translate-x-0`}>
         <div className="p-4">
           <h3 className="text-lg font-semibold mb-4">Filters</h3>
+          <button
+            onClick={() => setIsSidebarOpen(false)}
+            className="absolute top-2 right-2 p-2 text-2xl font-bold text-gray-500 hover:text-gray-700 md:hidden"
+          >
+            &times;
+          </button>
           <div className="mb-4">
             <h4 className="font-medium mb-2">Price Range</h4>
             <div className="flex items-center space-x-4">
@@ -95,12 +101,14 @@ export default function FlightsPage() {
         <div className="text-center">
           <h2 className='text-xl sm:text-2xl font-bold capitalize'>All flights</h2>
         </div>
-        <button 
-          className="md:hidden fixed top-4 left-4 z-30 bg-blue-600 text-white p-2 rounded"
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        >
-          {isSidebarOpen ? 'Close Filters' : 'Open Filters'}
-        </button>
+        {!isSidebarOpen && (
+          <button 
+            className="md:hidden fixed top-4 left-4 z-30 bg-blue-600 text-white p-2 rounded mt-10"
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          >
+            Open
+          </button>
+        )}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mt-8 px-4">
           {currentFlights.map((flight) => (
             <div key={flight._id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
