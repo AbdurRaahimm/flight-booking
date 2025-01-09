@@ -66,7 +66,8 @@ http://localhost:5173/
 ```
 
 ## Live Link
-https://flight-booking-sigma-six.vercel.app/
+Frontend: https://flight-booking-sigma-six.vercel.app/
+Backend API: https://flight-booking-w5ym.onrender.com/
 
 ## Screenshits
 ![landinge page](./images/image.png)
